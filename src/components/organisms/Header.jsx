@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from 'react-redux';
 import ApperIcon from "@/components/ApperIcon";
-
+import Button from "@/components/atoms/Button";
+import { AuthContext } from "../../App";
 const Header = ({ totalTasks, completedTasks, todayTasks }) => {
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   const completionPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
   const radius = 28;
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = circumference;
   const strokeDashoffset = circumference - (completionPercentage / 100) * circumference;
-
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,6 +27,29 @@ const Header = ({ totalTasks, completedTasks, todayTasks }) => {
               </h1>
               <p className="text-sm text-gray-600">Organize your day</p>
             </div>
+          </div>
+{/* User Info and Logout */}
+          <div className="flex items-center space-x-4">
+            {user && (
+              <div className="hidden sm:block text-right">
+                <div className="text-sm font-medium text-gray-900">
+                  {user.firstName} {user.lastName}
+                </div>
+                <div className="text-xs text-gray-600">
+                  {user.emailAddress}
+                </div>
+              </div>
+            )}
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="text-gray-600 hover:text-error"
+            >
+              <ApperIcon name="LogOut" className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
           </div>
 
           {/* Stats */}

@@ -54,7 +54,7 @@ const TasksPage = () => {
     let filtered = tasks;
 
     // Search filter
-    if (filters.search) {
+if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       filtered = filtered.filter(task =>
         task.title.toLowerCase().includes(searchLower) ||
@@ -65,7 +65,7 @@ const TasksPage = () => {
     // Status filter
     if (filters.status !== "all") {
       switch (filters.status) {
-        case "pending":
+case "pending":
           filtered = filtered.filter(task => !task.completed);
           break;
         case "completed":
@@ -139,7 +139,7 @@ const TasksPage = () => {
   }, [tasks]);
 
   // Handlers
-  const handleAddTask = async (taskData) => {
+const handleAddTask = async (taskData) => {
     try {
       const newTask = await TaskService.create(taskData);
       setTasks(prev => [newTask, ...prev]);
@@ -150,7 +150,7 @@ const TasksPage = () => {
     }
   };
 
-  const handleToggleComplete = async (taskId) => {
+const handleToggleComplete = async (taskId) => {
     try {
       const task = tasks.find(t => t.id === taskId);
       if (!task) return;
@@ -168,7 +168,7 @@ const TasksPage = () => {
     }
   };
 
-  const handleEditTask = async (taskId, updates) => {
+const handleEditTask = async (taskId, updates) => {
     try {
       const updatedTask = await TaskService.update(taskId, updates);
       setTasks(prev => 
@@ -180,10 +180,11 @@ const TasksPage = () => {
     }
   };
 
-  const handleDeleteTask = async (taskId) => {
+const handleDeleteTask = async (taskId) => {
     try {
       await TaskService.delete(taskId);
       setTasks(prev => prev.filter(t => t.id !== taskId));
+      toast.success("Task deleted successfully!");
     } catch (err) {
       toast.error("Failed to delete task");
       console.error("Error deleting task:", err);

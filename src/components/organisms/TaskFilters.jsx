@@ -107,7 +107,7 @@ const TaskFilters = ({
                   label={category.name}
                   icon="Tag"
                   count={category.taskCount}
-                  active={filters.category === category.name}
+active={filters.category === category.name}
                   onClick={() => onFilterChange("category", category.name)}
                 />
               </motion.div>

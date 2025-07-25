@@ -9,7 +9,7 @@ import { format } from "date-fns";
 
 const TaskForm = ({ onSubmit, categories = [] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: "",
     priority: "medium",
     dueDate: "",
@@ -133,9 +133,9 @@ const TaskForm = ({ onSubmit, categories = [] }) => {
                       value={formData.category}
                       onChange={(e) => handleChange("category", e.target.value)}
                     >
-                      <option value="">No category</option>
+<option value="">No category</option>
                       {categories.map(category => (
-                        <option key={category.id} value={category.name}>
+                        <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
                       ))}
